@@ -1,34 +1,43 @@
 package gsc.healingmeal.member.dto;
 
+import gsc.healingmeal.member.domain.Disease;
+import gsc.healingmeal.member.domain.Gender;
 import gsc.healingmeal.member.domain.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class JoinRequestDto {
     private String loginId;
 
     private String password;
-    private String passwordCheck;
 
-    private String nickname;
+    private String name;
 
-    // 암호화 사용 x
-    public User toEntity(){
-        return User.builder()
-                .loginId(this.loginId)
-                .password(this.password)
-                .nickname(this.nickname)
-                .build();
-    }
+    private String email;
+
+    private String birthDate;
+
+    private Gender gender;
+
+    private Disease disease;
+
+    private String phoneNumber;
 
     // 암호화 사용 o
     public User toEntity(String encodedPassword){
         return User.builder()
                 .loginId(this.loginId)
                 .password(encodedPassword)
-                .nickname(this.nickname)
+                .name(this.name)
+                .email(this.email)
+                .birthDate(this.birthDate)
+                .gender(this.gender)
+                .disease(this.disease)
+                .phoneNumber(phoneNumber)
                 .build();
     }
 }
