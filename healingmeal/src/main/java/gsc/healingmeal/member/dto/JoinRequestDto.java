@@ -2,6 +2,7 @@ package gsc.healingmeal.member.dto;
 
 import gsc.healingmeal.member.domain.Disease;
 import gsc.healingmeal.member.domain.Gender;
+import gsc.healingmeal.member.domain.Role;
 import gsc.healingmeal.member.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,8 @@ public class JoinRequestDto {
 
     private String phoneNumber;
 
+    private Role role;
+
     // 암호화 사용 o
     public User toEntity(String encodedPassword){
         return User.builder()
@@ -38,6 +41,7 @@ public class JoinRequestDto {
                 .gender(this.gender)
                 .disease(this.disease)
                 .phoneNumber(phoneNumber)
+                .role(this.role)
                 .build();
     }
 }
