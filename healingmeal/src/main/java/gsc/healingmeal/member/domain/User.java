@@ -6,12 +6,13 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Entity
 @Getter
-public class User {
+public class User implements Serializable {
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-zA-Z0-9._%+-]+@gmail\\.com$");
 
@@ -38,13 +39,12 @@ public class User {
 
     private String phoneNumber;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    protected User() {
-
-    }
 
     @Builder
-    private User(String loginId, String password, String name, String email, String birthDate, Gender gender, Disease disease, String phoneNumber) {
+    private User(String loginId, String password, String name, String email, String birthDate, Gender gender, Disease disease, String phoneNumber, Role role) {
 
         validateEmail(email);
         validateBirthDate(birthDate);
@@ -58,6 +58,11 @@ public class User {
         this.gender = gender;
         this.disease = disease;
         this.phoneNumber = phoneNumber;
+        this.role = role;
+    }
+
+    public User() {
+
     }
 
     private void validateEmail(String email) {

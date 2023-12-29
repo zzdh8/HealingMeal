@@ -1,19 +1,13 @@
 package gsc.healingmeal.member.service;
 
-import gsc.healingmeal.member.domain.Gender;
+import gsc.healingmeal.member.domain.Role;
 import gsc.healingmeal.member.domain.User;
 import gsc.healingmeal.member.dto.JoinRequestDto;
-import gsc.healingmeal.member.dto.LoginRequestDto;
 import gsc.healingmeal.member.execption.InvalidUserException;
 import gsc.healingmeal.member.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 public class UserJoinService {
@@ -41,6 +35,7 @@ public class UserJoinService {
                 .birthDate(joinRequestDto.getBirthDate())
                 .disease(joinRequestDto.getDisease())
                 .phoneNumber(joinRequestDto.getPhoneNumber())
+                .role(Role.ROLE_USER)
                 .build();
         validateDuplicateLoginId(user);
         validateDuplicatePhoneNumber(user);
