@@ -1,4 +1,4 @@
-package com.itcontest.skhuming.email.api.request;
+package gsc.healingmeal.email.api.request;
 
 import lombok.AccessLevel;
 import lombok.Getter;

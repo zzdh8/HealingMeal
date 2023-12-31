@@ -1,4 +1,4 @@
-package com.itcontest.skhuming.email.exception;
+package gsc.healingmeal.email.exception;
 
 public class InvalidEmailAddressException extends RuntimeException{
 

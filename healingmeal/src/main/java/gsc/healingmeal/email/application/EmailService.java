@@ -1,6 +1,8 @@
-package com.itcontest.skhuming.email.application;
+package gsc.healingmeal.email.application;
 
-import javax.mail.MessagingException;
+
+import jakarta.mail.MessagingException;
+
 import java.io.UnsupportedEncodingException;
 
 public interface EmailService {
