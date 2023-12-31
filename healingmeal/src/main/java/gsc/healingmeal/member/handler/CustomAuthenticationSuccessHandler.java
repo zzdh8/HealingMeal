@@ -1,4 +1,4 @@
-package gsc.healingmeal.handler;
+package gsc.healingmeal.member.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
