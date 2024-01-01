@@ -1,7 +1,7 @@
-package gsc.healingmeal.config;
+package gsc.healingmeal.member.config;
 
-import gsc.healingmeal.handler.CustomAuthenticationFailureHandler;
-import gsc.healingmeal.handler.CustomAuthenticationSuccessHandler;
+import gsc.healingmeal.member.handler.CustomAuthenticationFailureHandler;
+import gsc.healingmeal.member.handler.CustomAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,8 +28,8 @@ public class SecurityConfig extends Exception {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/user/**", "/").permitAll()
-                        .anyRequest().hasAnyRole("USER")
+                        .requestMatchers("/user/**", "/","/api/email-check").permitAll()
+                .anyRequest().hasAnyRole("USER")
                 )
                 .sessionManagement((session)-> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)//필요 시 세션 생성
