@@ -1,6 +1,6 @@
 package gsc.healingmeal.member.execption;
 
 public class InvalidUserNameException extends RuntimeException {
-    public InvalidUserNameException(String message) { super(message);
+    public InvalidUserNameException(final String message) { super(message);
     }
 }

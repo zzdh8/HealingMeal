@@ -1,7 +1,6 @@
 package gsc.healingmeal.member.service;
 
 import gsc.healingmeal.member.domain.User;
-import gsc.healingmeal.member.dto.PwdChangeDto;
 import gsc.healingmeal.member.dto.UserSearchDto;
 import gsc.healingmeal.member.execption.InvalidEmailAddressException;
 import gsc.healingmeal.member.execption.InvalidUserException;
@@ -11,11 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.SecureRandom;
 import java.util.Optional;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +18,7 @@ public class SearchService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserInfoModify userInfoModify;
     /*
     //이름, 이메일로 아이디 찾기
      */
@@ -57,39 +53,11 @@ public class SearchService {
         if (!userRepository.existsByLoginId(userSearchDto.getLoginId())){
             throw new InvalidUserException("Not Found ID");
         }
-        String temPwd = generateTemPwd(8);
+        String temPwd = userInfoModify.generateTemPwd(8);
         String encoded = passwordEncoder.encode(temPwd);
         User user = userRepository.findByEmail(userSearchDto.getEmail());
         user.setPassword(encoded);
         userRepository.save(user);
         return temPwd;
-    }
-
-    //비밀번호 변경
-    public void changePwd(PwdChangeDto pwdChangeDto, String loginId){
-        if (validatePwd(pwdChangeDto.getChangePwd())){
-            Optional<User> optionalUser = userRepository.findByLoginId(loginId);
-            User user = optionalUser.get();
-            if (passwordEncoder.matches(pwdChangeDto.getNowPwd(),user.getPassword())){
-
-            }
-
-        }
-    }
-    //-비밀번호 변경 전 유효성 검사
-    boolean validatePwd(String changePwd){
-        String REGEX = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d~!@#$%^&*()+|=]{6,12}";
-        return Pattern.matches(REGEX, changePwd);
-    }
-
-    //임시 비밀번호 발행
-    private String generateTemPwd(int length){
-
-        final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        SecureRandom random = new SecureRandom();
-        return IntStream.range(0, length)
-                .map(i -> random.nextInt(chars.length()))
-                .mapToObj(randomIndex -> String.valueOf(chars.charAt(randomIndex)))
-                .collect(Collectors.joining());
     }
 }
