@@ -20,6 +20,7 @@ public class UserInfoController {
     private final UserInfoModify userInfoModify;
 
     //아이디 찾기
+    //이름과 이메일을 파라미터로 받음.
     @GetMapping("/user/search/id")
     public ResponseEntity searchId(@RequestBody UserSearchDto userSearchDto){
         UserSearchDto loginId = searchService.searchId(userSearchDto.getName(), userSearchDto.getEmail());
@@ -27,11 +28,14 @@ public class UserInfoController {
     }
 
     //비밀번호 찾기
+    //이름과 이메일, 아이디를 파라미터로 받음.
     @GetMapping("/user/search/pwd")
     public ResponseEntity searchPwd(@RequestBody UserSearchDto userSearchDto){
         return new ResponseEntity<String>(searchService.searchPassword(userSearchDto),HttpStatus.OK);
     }
 
+    //비밀번호 변경
+    //현재 비밀번호와 변경하고자 하는 비밀번호를 파라미터로 받음.
     @PatchMapping("/change/pwd")
     public ResponseEntity changePwd(@RequestBody PwdChangeDto pwdChangeDto, HttpServletRequest request){
         userInfoModify.changePwd(pwdChangeDto, request.getUserPrincipal().getName());
