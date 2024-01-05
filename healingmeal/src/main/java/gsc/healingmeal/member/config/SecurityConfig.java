@@ -13,6 +13,10 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -25,6 +29,24 @@ public class SecurityConfig extends Exception {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors(c -> {
+                            CorsConfigurationSource source = request -> {
+                                // Cors 허용 패턴
+                                CorsConfiguration config = new CorsConfiguration();
+                                config.setAllowedOrigins(
+                                        List.of("")
+                                );
+                                config.setAllowedMethods(
+                                        List.of("")
+                                );
+                                config.setAllowedHeaders(
+                                        List.of("*")
+                                );
+                                return config;
+                            };
+                            c.configurationSource(source);
+                        }
+                )
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
@@ -36,8 +58,6 @@ public class SecurityConfig extends Exception {
                         .maximumSessions(1) // 동시 접속 가능 세션 오직 1
                         .maxSessionsPreventsLogin(true) //로그인 시도 시 현재 접속시도자 인증 실패
                 )
-
-
               //form login 설정
                 .formLogin((formLogin) ->
                         formLogin
