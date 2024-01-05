@@ -33,7 +33,6 @@ public class UserJoinService {
                 .email(joinRequestDto.getEmail())
                 .gender(joinRequestDto.getGender())
                 .birthDate(joinRequestDto.getBirthDate())
-                .disease(joinRequestDto.getDisease())
                 .phoneNumber(joinRequestDto.getPhoneNumber())
                 .role(Role.ROLE_USER)
                 .build();

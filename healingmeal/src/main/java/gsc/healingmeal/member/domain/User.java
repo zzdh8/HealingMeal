@@ -36,9 +36,6 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Enumerated(EnumType.STRING)
-    private Disease disease;
-
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
@@ -46,7 +43,7 @@ public class User implements Serializable {
 
 
     @Builder
-    private User(String loginId, String password, String name, String email, String birthDate, Gender gender, Disease disease, String phoneNumber, Role role) {
+    private User(String loginId, String password, String name, String email, String birthDate, Gender gender, String phoneNumber, Role role) {
 
         validateEmail(email);
         validateBirthDate(birthDate);
@@ -58,7 +55,6 @@ public class User implements Serializable {
         this.email = email;
         this.birthDate = birthDate;
         this.gender = gender;
-        this.disease = disease;
         this.phoneNumber = phoneNumber;
         this.role = role;
     }

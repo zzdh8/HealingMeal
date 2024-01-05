@@ -1,6 +1,5 @@
 package gsc.healingmeal.member.dto;
 
-import gsc.healingmeal.member.domain.Disease;
 import gsc.healingmeal.member.domain.Gender;
 import gsc.healingmeal.member.domain.Role;
 import gsc.healingmeal.member.domain.User;
@@ -24,8 +23,6 @@ public class JoinRequestDto {
 
     private Gender gender;
 
-    private Disease disease;
-
     private String phoneNumber;
 
     private Role role;
@@ -39,7 +36,6 @@ public class JoinRequestDto {
                 .email(this.email)
                 .birthDate(this.birthDate)
                 .gender(this.gender)
-                .disease(this.disease)
                 .phoneNumber(phoneNumber)
                 .role(this.role)
                 .build();
