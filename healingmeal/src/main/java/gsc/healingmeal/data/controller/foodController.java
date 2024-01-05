@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class foodController {
+public class foodController { //
 
     private final FoodService foodService;
 
