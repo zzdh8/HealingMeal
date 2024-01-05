@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Food_2 {
+public class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "food2_id")
