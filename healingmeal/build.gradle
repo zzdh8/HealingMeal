@@ -35,7 +35,8 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	// 이메일 추가
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
-
+	// json 파싱
+	implementation'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
 
