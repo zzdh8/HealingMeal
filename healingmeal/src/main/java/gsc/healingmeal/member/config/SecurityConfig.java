@@ -28,7 +28,7 @@ public class SecurityConfig extends Exception {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/user/**", "/","/api/email-check").permitAll()
+                        .requestMatchers("**","/user/**", "/","/api/email-check").permitAll()
                 .anyRequest().hasAnyRole("USER")
                 )
                 .sessionManagement((session)-> session
