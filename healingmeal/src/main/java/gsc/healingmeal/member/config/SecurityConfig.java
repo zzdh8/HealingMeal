@@ -30,28 +30,27 @@ public class SecurityConfig extends Exception {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors(c -> {
-                            CorsConfigurationSource source = request -> {
-                                // Cors 허용 패턴
-                                CorsConfiguration config = new CorsConfiguration();
-                                config.setAllowedOrigins(
-                                        List.of("")
-                                );
-                                config.setAllowedMethods(
-                                        List.of("")
-                                );
-                                config.setAllowedHeaders(
-                                        List.of("*")
-                                );
-                                return config;
-                            };
-                            c.configurationSource(source);
-                        }
+                    CorsConfigurationSource source = request -> {
+                        var cors = new CorsConfiguration();
+                        //배포 시 손봐야 함.
+                        //허용할 origin
+                        cors.setAllowedOrigins(List.of("*"));
+                        //허용할 method(CRUD)
+                        cors.setAllowedMethods(List.of("*"));
+                        //허용할 헤더
+                        cors.setAllowedHeaders(List.of("*"));
+                        //아래는 서버가 응답할 때 json을 js에서 처리할 수 있게 설정하는 것이다.
+                        //cors.setAllowCredentials(true);
+                        return cors;
+                    };
+                    c.configurationSource(source);
+                }
                 )
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/user/**", "/","/api/email-check").permitAll()
-                .anyRequest().hasAnyRole("USER")
+                        .requestMatchers("/**", "/user/**","/api/email-check").permitAll()
+                        .anyRequest().hasAnyRole("USER")
                 )
                 .sessionManagement((session)-> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)//필요 시 세션 생성
