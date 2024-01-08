@@ -53,5 +53,10 @@ public class UserJoinService {
             throw new InvalidUserException("This phone number is already in use.");
         }
     }
+    public boolean isLoginIdDuplicate(String loginId) {
+        // 아이디 중복확인
+        return userRepository.existsByLoginId(loginId);
+    }
+
 
 }

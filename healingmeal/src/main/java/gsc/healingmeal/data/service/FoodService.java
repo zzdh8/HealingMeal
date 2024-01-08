@@ -24,7 +24,7 @@ public class FoodService {
     @Transactional
     public void loadSave() throws Exception {
         JSONParser parser = new JSONParser();
-        Reader reader = new FileReader("/Users/inho/Downloads/total.json");
+        Reader reader = new FileReader("/Users/inho/Downloads/-20240105.json");
         JSONArray records = (JSONArray) parser.parse(reader);
 
         for (Object record : records) {
