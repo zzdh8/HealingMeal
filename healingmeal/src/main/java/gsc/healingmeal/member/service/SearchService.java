@@ -24,8 +24,17 @@ public class SearchService {
         if (userRepository.existsByName(name)){
             if (userRepository.existsByEmail(email)){
                 User user = userRepository.findByEmailAndName(email, name).orElseThrow(()-> new InvalidUserException("user not found in the user list table."));
-                return UserSearchDto.builder()
+                UserSearchDto userSearchDto = UserSearchDto.builder()
                         .loginId(user.getLoginId()).build();
+                String temId = userSearchDto.getLoginId();
+                int length = temId.length();
+                int middle = length / 2;
+                StringBuilder maskedStr = new StringBuilder(temId.substring(0, middle));
+                for (int i = middle; i < length; i++) {
+                    maskedStr.append('*');
+                }
+                userSearchDto.setLoginId(maskedStr.toString());
+                return userSearchDto;
             } else{
                 throw new InvalidEmailAddressException("email not found");
             }
