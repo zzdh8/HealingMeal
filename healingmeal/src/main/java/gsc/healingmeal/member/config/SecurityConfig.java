@@ -55,7 +55,8 @@ public class SecurityConfig extends Exception {
                 .sessionManagement((session)-> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)//필요 시 세션 생성
                         .maximumSessions(1) // 동시 접속 가능 세션 오직 1
-                        .maxSessionsPreventsLogin(true) //로그인 시도 시 현재 접속시도자 인증 실패
+                        .maxSessionsPreventsLogin(false) //로그인 시도 시 현재 접속시도자 인증 실패
+                        .expiredUrl("/main")
                 )
               //form login 설정
                 .formLogin((formLogin) ->
