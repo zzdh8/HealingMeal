@@ -22,16 +22,16 @@ public class UserInfoController {
     //아이디 찾기
     //이름과 이메일을 파라미터로 받음.
     @GetMapping("/user/search/id")
-    public ResponseEntity searchId(@RequestBody UserSearchDto userSearchDto){
-        UserSearchDto loginId = searchService.searchId(userSearchDto.getName(), userSearchDto.getEmail());
+    public ResponseEntity searchId(String name, String email){
+        UserSearchDto loginId = searchService.searchId(name, email);
         return new ResponseEntity<String>(loginId.getLoginId(), HttpStatus.OK);
     }
 
     //비밀번호 찾기
     //이름과 이메일, 아이디를 파라미터로 받음.
     @GetMapping("/user/search/pwd")
-    public ResponseEntity searchPwd(@RequestBody UserSearchDto userSearchDto){
-        return new ResponseEntity<String>(searchService.searchPassword(userSearchDto),HttpStatus.OK);
+    public ResponseEntity searchPwd(String name, String email, String loginId){
+        return new ResponseEntity<String>(searchService.searchPassword(name, email, loginId),HttpStatus.OK);
     }
 
     //비밀번호 변경
