@@ -23,9 +23,9 @@ public class UserJoinController {
     @PostMapping("user/join/id")
     public ResponseEntity<String> userJoinId(@RequestBody JoinIdRequestDto joinRequestDto){
         boolean userId = userJoinService.isLoginIdDuplicate(joinRequestDto.getLoginId());
-        if (userId){
-            return  new ResponseEntity<>("사용 중인 아이디 입니다.",HttpStatus.OK);
+        if (!userId){
+            return  new ResponseEntity<>("사용 가능한 아이디 입니다.",HttpStatus.OK);
         }
-        return new ResponseEntity<>("사용 가능한 아이디 입니다." , HttpStatus.OK);
+        throw new RuntimeException("아미 사용중인 아이디 입니다.");
     }
 }
