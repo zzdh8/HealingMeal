@@ -10,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class SearchService {
@@ -25,8 +23,7 @@ public class SearchService {
     public UserSearchDto searchId(String name, String email) {
         if (userRepository.existsByName(name)){
             if (userRepository.existsByEmail(email)){
-                Optional<User> optionalUser = userRepository.findByEmailAndName(email, name);
-                User user = optionalUser.get();
+                User user = userRepository.findByEmailAndName(email, name).orElseThrow(()-> new InvalidUserException("user not found in the user list table."));
                 return UserSearchDto.builder()
                         .loginId(user.getLoginId()).build();
             } else{

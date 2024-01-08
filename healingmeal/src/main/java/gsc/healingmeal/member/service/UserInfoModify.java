@@ -3,6 +3,7 @@ package gsc.healingmeal.member.service;
 import gsc.healingmeal.member.domain.User;
 import gsc.healingmeal.member.dto.PwdChangeDto;
 import gsc.healingmeal.member.execption.InvalidPasswordException;
+import gsc.healingmeal.member.execption.InvalidUserException;
 import gsc.healingmeal.member.execption.MismatchException;
 import gsc.healingmeal.member.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
-import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -25,8 +25,7 @@ public class UserInfoModify {
     //비밀번호 변경
     public void changePwd(PwdChangeDto pwdChangeDto, String loginId){
         if (validatePwd(pwdChangeDto.getChangePwd())){
-            Optional<User> optionalUser = userRepository.findByLoginId(loginId);
-            User user = optionalUser.get();
+            User user = userRepository.findByLoginId(loginId).orElseThrow(()-> new InvalidUserException("user not found in the user list table."));
             if(passwordEncoder.matches(pwdChangeDto.getNowPwd(),user.getPassword())){
                 user.setPassword(passwordEncoder.encode(pwdChangeDto.getChangePwd()));
                 userRepository.save(user);
